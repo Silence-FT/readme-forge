@@ -1,0 +1,7 @@
+.save{display:flex;align-items:center;gap:8px}
+#saveDot{width:8px;height:8px;border-radius:50%;background:var(--ok);animation:pulse 2s infinite;display:inline-block}
+#saveDot.blink{animation:blink .4s ease}
+.keys{display:flex;gap:6px;align-items:center}
+kbd{font-family:var(--mono);font-size:10px;background:var(--glass-2);border:1px solid var(--line);
+  border-bottom-width:2px;border-radius:5px;padding:2px 6px;color:var(--text)}
+.stats{margin-left:auto;font-family:var(--mono);font-size:11px}

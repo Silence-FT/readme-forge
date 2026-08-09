@@ -1,0 +1,31 @@
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --bg:#0b1020;
+  --glass:rgba(255,255,255,.06);
+  --glass-2:rgba(255,255,255,.11);
+  --line:rgba(255,255,255,.13);
+  --text:#e6eaf5;
+  --muted:#8b93a7;
+  --indigo:#6366f1;
+  --violet:#a855f7;
+  --grad:linear-gradient(135deg,#6366f1,#a855f7);
+  --ok:#34d399;
+  --red:#f87171;
+  --r:16px;
+  --sans:'Inter',system-ui,-apple-system,sans-serif;
+  --mono:'Fira Code',ui-monospace,monospace;
+}
+
+body{
+  font-family:var(--sans);color:var(--text);background:var(--bg);
+  min-height:100vh;overflow:hidden;
+}
+
+/* glowing background orbs */
+body::before,body::after{content:"";position:fixed;border-radius:50%;filter:blur(130px);z-index:-1}
+body::before{width:540px;height:540px;background:#4f46e5;opacity:.35;top:-150px;left:-130px}
+body::after{width:640px;height:640px;background:#9333ea;opacity:.28;bottom:-220px;right:-170px}
+
+button,input,select,textarea{font-family:inherit}
+::selection{background:rgba(99,102,241,.45)}
