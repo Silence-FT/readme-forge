@@ -1,33 +1,46 @@
-*{margin:0;padding:0;box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box;transition:background .4s ease,color .4s ease,border-color .4s ease,box-shadow .4s ease}
+[hidden]{display:none!important}
 
 :root{
-  --bg:#0b1020;
-  --glass:rgba(255,255,255,.06);
-  --glass-2:rgba(255,255,255,.11);
-  --line:rgba(255,255,255,.13);
-  --text:#e6eaf5;
-  --muted:#8b93a7;
-  --indigo:#6366f1;
-  --violet:#a855f7;
-  --grad:linear-gradient(135deg,#6366f1,#a855f7);
-  --ok:#34d399;
-  --red:#f87171;
-  --r:16px;
-  --sans:'Inter',system-ui,-apple-system,sans-serif;
+  color-scheme:light;
+  --bg:#f5f6fa;
+  --white:#ffffff;
+  --text:#1a1a2e;
+  --muted:#8b8fa3;
+  --border:#e8e9ed;
+  --blue:#4361ee;
+  --blue-hover:#3a56d4;
+  --red:#ef4444;
+  --red-hover:#dc2626;
+  --shadow:0 2px 12px rgba(0,0,0,.06);
+  --shadow-lg:0 8px 30px rgba(0,0,0,.08);
+  --r:14px;
+  --sans:'Inter',system-ui,sans-serif;
   --mono:'Fira Code',ui-monospace,monospace;
+  --transition-speed:.4s;
 }
+
+[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0f1117;
+  --white:#1a1b23;
+  --text:#e4e6ed;
+  --muted:#6b7084;
+  --border:#2a2b35;
+  --blue:#6381f7;
+  --blue-hover:#5570e0;
+  --red:#f87171;
+  --red-hover:#ef4444;
+  --shadow:0 2px 12px rgba(0,0,0,.3);
+  --shadow-lg:0 8px 30px rgba(0,0,0,.4);
+}
+
+html{background:var(--bg)}
 
 body{
   font-family:var(--sans);color:var(--text);background:var(--bg);
   min-height:100vh;overflow:hidden;
 }
 
-/* glowing orbs — soft gradients instead of GPU-heavy blur (Chrome fix) */
-body::before,body::after{content:"";position:fixed;border-radius:50%;z-index:-1;pointer-events:none}
-body::before{width:900px;height:900px;top:-300px;left:-250px;
-  background:radial-gradient(circle,rgba(99,102,241,.4) 0%,rgba(99,102,241,0) 62%)}
-body::after{width:1000px;height:1000px;bottom:-350px;right:-300px;
-  background:radial-gradient(circle,rgba(168,85,247,.33) 0%,rgba(168,85,247,0) 62%)}
-
 button,input,select,textarea{font-family:inherit}
-::selection{background:rgba(99,102,241,.45)}
+::selection{background:rgba(67,97,238,.2)}

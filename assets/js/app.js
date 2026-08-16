@@ -1,64 +1,91 @@
 'use strict';
+
+/* ════════ THEME TOGGLE ════════ */
+(function() {
+  if (localStorage.getItem('readmeforge-theme') === 'dark')
+    document.documentElement.setAttribute('data-theme', 'dark');
+  const toggle = document.getElementById('themeToggle');
+  if (!toggle) return;
+  toggle.addEventListener('click', function() {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('readmeforge-theme', 'light');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      localStorage.setItem('readmeforge-theme', 'dark');
+    }
+  });
+})();
+
+/* ════════ FORCE SMOOTH TRANSITIONS (bulletproof) ════════ */
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    const t = 'background 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease';
+    document.querySelectorAll('*').forEach(el => { el.style.transition = t; });
+  }, 200);
+});
+
 const $ = s => document.querySelector(s);
 const $$ = s => Array.from(document.querySelectorAll(s));
 
 /* ════════ TECH CATALOG — [name, hex, simple-icons slug, logoColor?] ════════ */
 const TECH = {
-  Languages: [
-    ['JavaScript','F7DF1E','javascript'],['TypeScript','3178C6','typescript'],
-    ['Python','3776AB','python'],['Java','ED8B00','openjdk'],['Go','00ADD8','go'],
-    ['Rust','000000','rust'],['C','A8B9CC','c'],['C++','00599C','cplusplus'],
-    ['C#','239120','csharp'],['PHP','777BB4','php'],['Ruby','CC342D','ruby'],
-    ['Swift','F05138','swift'],['Kotlin','7F52FF','kotlin'],['Dart','0175C2','dart'],
-    ['Elixir','4B275F','elixir'],['Scala','DC322F','scala'],['Lua','2C2D72','lua'],
-  ],
-  Frontend: [
-    ['HTML5','E34F26','html5'],['CSS3','1572B6','css3'],['Sass','CC6699','sass'],
-    ['Tailwind CSS','06B6D4','tailwindcss'],['Bootstrap','7952B3','bootstrap'],
-    ['React','61DAFB','react','black'],['Vue.js','4FC08D','vuedotjs'],
-    ['Svelte','FF3E00','svelte'],['Angular','DD0031','angular'],
-    ['Next.js','000000','nextdotjs'],['Nuxt','00DC82','nuxtdotjs'],
-    ['Astro','BC52EE','astro'],['Vite','646CFF','vite'],['Webpack','8DD6F9','webpack'],
-    ['Three.js','000000','threedotjs'],['Electron','47848F','electron'],
-    ['Tauri','24C8DB','tauri'],['Redux','764ABC','redux'],['Flutter','02569B','flutter'],
-  ],
-  Backend: [
-    ['Node.js','5FA04E','nodedotjs'],['Deno','000000','deno'],['Bun','000000','bun'],
-    ['Express','000000','express'],['NestJS','E0234E','nestjs'],['Fastify','000000','fastify'],
-    ['Django','092E20','django'],['Flask','000000','flask'],['FastAPI','009688','fastapi'],
-    ['Spring','6DB33F','spring'],['Laravel','FF2D20','laravel'],
-    ['Ruby on Rails','CC0000','rubyonrails'],['.NET','512BD4','dotnet'],
-    ['GraphQL','E10098','graphql'],['Socket.io','010101','socketdotio'],
-  ],
-  'Data & ML': [
-    ['PostgreSQL','4169E1','postgresql'],['MySQL','4479A1','mysql'],['SQLite','003B57','sqlite'],
-    ['MongoDB','47A248','mongodb'],['Redis','FF4438','redis'],['Firebase','FFD800','firebase'],
-    ['Supabase','3FCF8E','supabase'],['Prisma','2D3748','prisma'],
-    ['TensorFlow','FF6F00','tensorflow'],['PyTorch','EE4C2C','pytorch'],
-    ['Pandas','150458','pandas'],['NumPy','013243','numpy'],['Jupyter','F37626','jupyter'],
-    ['OpenAI','412991','openai'],
-  ],
-  'Infra & Cloud': [
-    ['Docker','2496ED','docker'],['Kubernetes','326CE5','kubernetes'],['Nginx','009639','nginx'],
-    ['Linux','FCC624','linux','black'],['Git','F05032','git'],['GitHub','181717','github'],
-    ['GitLab','FC6D26','gitlab'],['GitHub Actions','2088FF','githubactions'],
-    ['AWS','232F3E','amazonaws'],['Vercel','000000','vercel'],
-    ['Netlify','00C7B7','netlify'],['Cloudflare','F38020','cloudflare'],
-  ],
-  Tooling: [
-    ['VS Code','007ACC','visualstudiocode'],['Figma','F24E1E','figma'],
-    ['Neovim','57A143','neovim'],['Markdown','000000','markdown'],
-    ['ESLint','4B32C3','eslint'],['Prettier','F7B93E','prettier'],
-    ['Jest','C21325','jest'],['Vitest','6E9F43','vitest'],['Storybook','FF4785','storybook'],
-    ['Postman','FF6C37','postman'],['Stripe','635BFF','stripe'],
-  ],
+Languages: [
+['JavaScript','F7DF1E','javascript'],['TypeScript','3178C6','typescript'],
+['Python','3776AB','python'],['Java','ED8B00','openjdk'],['Go','00ADD8','go'],
+['Rust','000000','rust'],['C','A8B9CC','c'],['C++','00599C','cplusplus'],
+['C#','239120','csharp'],['PHP','777BB4','php'],['Ruby','CC342D','ruby'],
+['Swift','F05138','swift'],['Kotlin','7F52FF','kotlin'],['Dart','0175C2','dart'],
+['Elixir','4B275F','elixir'],['Scala','DC322F','scala'],['Lua','2C2D72','lua'],
+],
+Frontend: [
+['HTML5','E34F26','html5'],['CSS3','1572B6','css3'],['Sass','CC6699','sass'],
+['Tailwind CSS','06B6D4','tailwindcss'],['Bootstrap','7952B3','bootstrap'],
+['React','61DAFB','react','black'],['Vue.js','4FC08D','vuedotjs'],
+['Svelte','FF3E00','svelte'],['Angular','DD0031','angular'],
+['Next.js','000000','nextdotjs'],['Nuxt','00DC82','nuxtdotjs'],
+['Astro','BC52EE','astro'],['Vite','646CFF','vite'],['Webpack','8DD6F9','webpack'],
+['Three.js','000000','threedotjs'],['Electron','47848F','electron'],
+['Tauri','24C8DB','tauri'],['Redux','764ABC','redux'],['Flutter','02569B','flutter'],
+],
+Backend: [
+['Node.js','5FA04E','nodedotjs'],['Deno','000000','deno'],['Bun','000000','bun'],
+['Express','000000','express'],['NestJS','E0234E','nestjs'],['Fastify','000000','fastify'],
+['Django','092E20','django'],['Flask','000000','flask'],['FastAPI','009688','fastapi'],
+['Spring','6DB33F','spring'],['Laravel','FF2D20','laravel'],
+['Ruby on Rails','CC0000','rubyonrails'],['.NET','512BD4','dotnet'],
+['GraphQL','E10098','graphql'],['Socket.io','010101','socketdotio'],
+],
+'Data & ML': [
+['PostgreSQL','4169E1','postgresql'],['MySQL','4479A1','mysql'],['SQLite','003B57','sqlite'],
+['MongoDB','47A248','mongodb'],['Redis','FF4438','redis'],['Firebase','FFD800','firebase'],
+['Supabase','3FCF8E','supabase'],['Prisma','2D3748','prisma'],
+['TensorFlow','FF6F00','tensorflow'],['PyTorch','EE4C2C','pytorch'],
+['Pandas','150458','pandas'],['NumPy','013243','numpy'],['Jupyter','F37626','jupyter'],
+['OpenAI','412991','openai'],
+],
+'Infra & Cloud': [
+['Docker','2496ED','docker'],['Kubernetes','326CE5','kubernetes'],['Nginx','009639','nginx'],
+['Linux','FCC624','linux','black'],['Git','F05032','git'],['GitHub','181717','github'],
+['GitLab','FC6D26','gitlab'],['GitHub Actions','2088FF','githubactions'],
+['AWS','232F3E','amazonaws'],['Vercel','000000','vercel'],
+['Netlify','00C7B7','netlify'],['Cloudflare','F38020','cloudflare'],
+],
+Tooling: [
+['VS Code','007ACC','visualstudiocode'],['Figma','F24E1E','figma'],
+['Neovim','57A143','neovim'],['Markdown','000000','markdown'],
+['ESLint','4B32C3','eslint'],['Prettier','F7B93E','prettier'],
+['Jest','C21325','jest'],['Vitest','6E9F43','vitest'],['Storybook','FF4785','storybook'],
+['Postman','FF6C37','postman'],['Stripe','635BFF','stripe'],
+],
 };
 const TECH_INDEX = {};
 Object.values(TECH).flat().forEach(t =>
   TECH_INDEX[t[0]] = { name:t[0], color:t[1], logo:t[2], lw:t[3]||'white' });
 
 const LICENSES = {'MIT':'2DA44E','Apache-2.0':'1F6FEB','GPL-3.0':'E34C26',
-  'BSD-3-Clause':'F7B93E','MPL-2.0':'8250DF','Unlicense':'6E7781'};
+'BSD-3-Clause':'F7B93E','MPL-2.0':'8250DF','Unlicense':'6E7781'};
 
 const DEFAULT_STEPS = `Fork the repository
 Create your feature branch (git checkout -b feature/amazing-feature)
@@ -68,17 +95,16 @@ Open a Pull Request`;
 
 const KEY = 'readme-forge:v1';
 const FIELDS = ['rf-name','rf-tagline','rf-desc','rf-logo','rf-repo','rf-version','rf-author',
-  'rf-author-url','rf-license','rf-badge-style','rf-features','rf-install','rf-run','rf-usage',
-  'rf-screenshot','rf-tree','rf-contrib','rf-ack'];
+'rf-author-url','rf-license','rf-badge-style','rf-features','rf-install','rf-run','rf-usage',
+'rf-screenshot','rf-tree','rf-contrib','rf-ack'];
 const CHECKS = ['ck-toc','ck-features','ck-stack','ck-quickstart','ck-usage','ck-tree',
-  'ck-contrib','ck-license','ck-author','ck-emoji'];
-
+'ck-contrib','ck-license','ck-author','ck-emoji'];
 let techSel = new Set();
 let customBadges = [];
 
 /* ════════ badge builders ════════ */
 const esc = s => encodeURIComponent(String(s||''))
-  .replace(/-/g,'--').replace(/_/g,'__').replace(/%20/g,'_');
+  .replace(/-/g,'--').replace(/_/g,'__').replace(/%20/g,'');
 
 function badgeUrl(o){
   const seg = o.message ? `${esc(o.label)}-${esc(o.message)}-${o.color}` : `${esc(o.label)}-${o.color}`;
@@ -95,17 +121,17 @@ function slugify(t){
     .replace(/[^\p{L}\p{N}\p{Extended_Pictographic}\p{Emoji_Component}\s-]/gu,'')
     .trim().replace(/\s+/g,'-');
 }
+
 function buildTree(src){
   const items = [];
   src.split('\n').forEach(l => {
     if(!l.trim()) return;
-    const lead = l.match(/^[\t ]*/)[0].replace(/\t/g,'  ').length;
+    const lead = l.match(/^[\t ]*/)[0].replace(/\t/g,' ').length;
     items.push({ name:l.trim(), depth:Math.floor(lead/2) });
   });
   const isLast = i => {
     const d = items[i].depth;
-    for(let j=i+1;j<items.length;j++)
-      if(items[j].depth <= d) return items[j].depth < d;
+    for(let j=i+1;j<items.length;j++) if(items[j].depth <= d) return items[j].depth < d;
     return true;
   };
   const out = [];
@@ -122,6 +148,7 @@ function buildTree(src){
   }
   return out.join('\n');
 }
+
 function featuresBlock(text){
   const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
   if(!lines.length) return '';
@@ -135,6 +162,7 @@ function featuresBlock(text){
   }
   return lines.map(l => `- ${l}`).join('\n');
 }
+
 const fence = c => '```bash\n' + c.trim() + '\n```\n\n';
 
 /* ════════ state ════════ */
@@ -159,7 +187,6 @@ function readState(){
 function buildMarkdown(s){
   const L = [];
   const title = s.name || 'Untitled Project';
-
   if(s.logo) L.push(`<p align="center">`, `<img src="${s.logo}" alt="${title} logo" width="140" />`, `</p>`, '');
   L.push(`# ${title}`, '');
   if(s.tagline) L.push(`> ${s.tagline}`, '');
@@ -211,11 +238,11 @@ function buildMarkdown(s){
   }
   if(s.sections.license)
     add('license', s.license !== 'None'
-      ? `Distributed under the **${s.license} License**. See [\`LICENSE\`](./LICENSE) for more information.`
-      : 'This project is open source. Add a [`LICENSE`](./LICENSE) file to define the terms.');
+      ? `Distributed under the **${s.license} License**. See [LICENSE](./LICENSE) for more information.`
+      : 'This project is open source. Add a [LICENSE](./LICENSE) file to define the terms.');
   if(s.sections.author && (s.author || s.ack)){
-    let a = s.author ? (s.authorUrl ? `Built by [${s.author}](${s.authorUrl}).` : `Built by **${s.author}**.`) : '';
-    if(s.ack) a += (a ? '\n\n' : '') + `**Acknowledgments:** ${s.ack}`;
+    let a = s.author ? (s.authorUrl ? `Built by [${s.author}](${s.authorUrl}).` : `Built by ${s.author}.`) : '';
+    if(s.ack) a += (a ? '\n\n' : '') + `Acknowledgments: ${s.ack}`;
     add('author', a);
   }
 
@@ -241,7 +268,7 @@ function update(){
   }
   $('#raw').textContent = currentMd;
   $('#treeHint').textContent = s.tree ? buildTree(s.tree) : 'tree preview appears here…';
-  const badges   = (currentMd.match(/img\.shields\.io/g) || []).length;
+  const badges   = (currentMd.match(/img.shields.io/g) || []).length;
   const sections = (currentMd.match(/^## /gm) || []).length;
   const words    = currentMd.split(/\s+/).filter(Boolean).length;
   $('#sbStats').textContent = `${badges} badges · ${sections} sections · ${words} words`;
@@ -283,14 +310,14 @@ const EXAMPLE = {
   'rf-features':'Live preview|Markdown rendered in real time as you type\nBadge engine|Auto-generating shields.io badges for 80+ technologies\nTree builder|Turns a plain indented list into a clean ├── tree\nOne-click export|Copy to clipboard or download README.md instantly\nAutosave|Drafts persist locally between sessions',
   'rf-install':'git clone https://github.com/yourname/readme-forge.git\ncd readme-forge',
   'rf-run':'python3 -m http.server 8080\n# then open http://localhost:8080 — or just open index.html',
-  'rf-usage':'Everything runs client-side. Form state autosaves to `localStorage`, so you can close the tab and pick up where you left off.\n\n> Tip: use `Name | description` lines in **Features** to switch the list into a table automatically.',
+  'rf-usage':'Everything runs client-side. Form state autosaves to `localStorage`, so you can close the tab and pick up where you left off.\n\n> Tip: use `Name | description` lines in Features to switch the list into a table automatically.',
   'rf-screenshot':'',
   'rf-tree':'readme-forge\n  index.html\n  assets\n    css\n      styles.css\n    js\n      app.js\n  README.md\n  LICENSE',
   'rf-contrib':DEFAULT_STEPS,
   'rf-ack':'Rendered with [marked.js](https://github.com/markedjs/marked) · badges by [shields.io](https://shields.io)',
 };
 const EXAMPLE_CHECKS = {'ck-toc':true,'ck-features':true,'ck-stack':true,'ck-quickstart':true,
-  'ck-usage':true,'ck-tree':true,'ck-contrib':true,'ck-license':true,'ck-author':true,'ck-emoji':false};
+'ck-usage':true,'ck-tree':true,'ck-contrib':true,'ck-license':true,'ck-author':true,'ck-emoji':false};
 
 function loadExample(){
   Object.entries(EXAMPLE).forEach(([id,v]) => { const el = document.getElementById(id); if(el) el.value = v; });
@@ -318,15 +345,14 @@ function renderChips(){
     const list = arr.filter(t => !q || t[0].toLowerCase().includes(q));
     if(!list.length) continue;
     html += `<div class="chip-group"><h4>${g}</h4><div class="chips">` +
-      list.map(t => `<button type="button" class="chip${techSel.has(t[0])?' on':''}" data-tech="${t[0]}">
-        <i style="background:#${t[1]}"></i>${t[0]}</button>`).join('') + '</div></div>';
+      list.map(t => `<button type="button" class="chip${techSel.has(t[0])?' on':''}" data-tech="${t[0]}"><i style="background:#${t[1]}"></i>${t[0]}</button>`).join('') +
+      '</div></div>';
   }
-  $('#chipGroups').innerHTML = html || `<p class="empty">No technology matches “${q}”.</p>`;
+  $('#chipGroups').innerHTML = html || `<p class="empty">No technology matches "${q}".</p>`;
 }
 function renderBadges(){
   $('#cbList').innerHTML = customBadges.map((b,i) =>
-    `<div class="cb-row"><code>${b.label||'…'}${b.message ? ' – ' + b.message : ''} · #${b.color||'6E7781'}</code>
-     <button type="button" data-i="${i}" title="Remove">✕</button></div>`).join('');
+    `<div class="cb-row"><code>${b.label||'…'}${b.message ? ' – ' + b.message : ''} · #${b.color||'6E7781'}</code><button type="button" data-i="${i}" title="Remove">✕</button></div>`).join('');
 }
 
 /* ════════ export ════════ */
@@ -374,14 +400,13 @@ $('#cb-add').addEventListener('click', () => {
   const logo    = $('#cb-logo').value.trim();
   if(!label && !message) return;
   customBadges.push({label, message, color:color||'6E7781', logo});
-  ['#cb-label','#cb-message','#cb-color','#cb-logo'].forEach(id => document.getElementById(id).value = '');
+  ['cb-label','cb-message','cb-color','cb-logo'].forEach(id => document.getElementById(id).value = '');
   renderBadges(); update();
 });
 $('#cbList').addEventListener('click', e => {
   const b = e.target.closest('button[data-i]'); if(!b) return;
   customBadges.splice(+b.dataset.i, 1); renderBadges(); update();
 });
-
 $$('.tab').forEach(t => t.addEventListener('click', () => {
   $$('.tab').forEach(x => x.classList.remove('on'));
   $$('.tab-body').forEach(x => x.hidden = true);
@@ -395,12 +420,10 @@ $$('.seg button').forEach(b => b.addEventListener('click', () => {
   $('#previewWrap').hidden = raw;
   $('#raw').hidden = !raw;
 }));
-
 $('#btnCopy').addEventListener('click', copyMd);
 $('#btnDownload').addEventListener('click', download);
 $('#btnExample').addEventListener('click', loadExample);
 $('#btnReset').addEventListener('click', resetAll);
-
 window.addEventListener('keydown', e => {
   const mod = e.metaKey || e.ctrlKey;
   if(mod && e.key.toLowerCase() === 's'){ e.preventDefault(); download(); }

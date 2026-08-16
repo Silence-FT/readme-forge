@@ -6,157 +6,226 @@
 <title>README Forge — zero-friction README generator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22black%22/><text x=%2250%22 y=%2254%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-weight=%22bold%22 font-size=%2245%22 fill=%22white%22>RF</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
 <div class="app">
 
-<header class="glass topbar">
-  <div class="logo">
-    <div class="logo-icon">⚡</div>
-    <div><h1>README<span>Forge</span></h1><p>zero-friction docs generator</p></div>
-  </div>
-  <div class="actions">
-    <button class="btn ghost" id="btnExample" type="button">Load example</button>
-    <button class="btn ghost" id="btnReset" type="button">Reset</button>
-    <div class="seg">
-      <button class="on" data-view="preview" type="button">Preview</button>
-      <button data-view="raw" type="button">Markdown</button>
+  <header class="glass topbar">
+    <div class="logo">
+      <div class="logo-icon">RF</div>
+      <div>
+        <h1>README<span>Forge</span></h1>
+        <p>zero-friction docs generator</p>
+      </div>
     </div>
-    <button class="btn primary" id="btnCopy" type="button">Copy markdown</button>
-    <button class="btn success" id="btnDownload" type="button">↓ README.md</button>
-  </div>
-</header>
+    <div class="actions">
+      <!-- THEME TOGGLE ADDED HERE -->
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme">
+        <span class="toggle-track">
+          <span class="toggle-icon sun"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
+          <span class="toggle-icon moon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+          <span class="toggle-thumb"></span>
+        </span>
+      </button>
 
-<main class="workspace">
-
-  <section class="glass panel">
-    <nav class="tabs">
-      <button class="tab on" data-tab="tab-basics" type="button">Basics</button>
-      <button class="tab" data-tab="tab-stack" type="button">Stack</button>
-      <button class="tab" data-tab="tab-content" type="button">Content</button>
-      <button class="tab" data-tab="tab-structure" type="button">Structure</button>
-    </nav>
-    <div class="panel-body">
-
-      <div class="tab-body" id="tab-basics">
-        <div class="field"><label class="lbl" for="rf-name">Project name</label>
-          <input type="text" id="rf-name" placeholder="My Awesome Project"></div>
-        <div class="field"><label class="lbl" for="rf-tagline">Tagline</label>
-          <input type="text" id="rf-tagline" placeholder="One sharp sentence about what it does"></div>
-        <div class="field"><label class="lbl" for="rf-desc">Description</label>
-          <textarea id="rf-desc" rows="5" placeholder="What problem does it solve? Markdown is supported."></textarea></div>
-        <div class="field"><label class="lbl" for="rf-logo">Logo URL · optional</label>
-          <input type="text" id="rf-logo" placeholder="https://…/logo.png"></div>
-        <div class="row">
-          <div class="field"><label class="lbl" for="rf-version">Version</label>
-            <input type="text" id="rf-version" placeholder="v1.0.0"></div>
-          <div class="field"><label class="lbl" for="rf-license">License</label>
-            <select id="rf-license"><option>MIT</option><option>Apache-2.0</option><option>GPL-3.0</option>
-            <option>BSD-3-Clause</option><option>MPL-2.0</option><option>Unlicense</option><option>None</option></select></div>
-        </div>
-        <div class="field"><label class="lbl" for="rf-repo">Repository URL</label>
-          <input type="text" id="rf-repo" placeholder="https://github.com/user/repo"></div>
-        <div class="row">
-          <div class="field"><label class="lbl" for="rf-author">Author</label>
-            <input type="text" id="rf-author" placeholder="Your Name"></div>
-          <div class="field"><label class="lbl" for="rf-author-url">Author link</label>
-            <input type="text" id="rf-author-url" placeholder="https://github.com/you"></div>
-        </div>
-        <div class="field"><label class="lbl" for="rf-badge-style">Badge style</label>
-          <select id="rf-badge-style"><option>flat-square</option><option>flat</option>
-          <option>for-the-badge</option><option>plastic</option></select></div>
+      <button class="btn ghost" id="btnExample" type="button">Load example</button>
+      <button class="btn red" id="btnReset" type="button">Reset</button>
+      
+      <div class="seg">
+        <button class="on" data-view="preview" type="button">Preview</button>
+        <button data-view="raw" type="button">Markdown</button>
       </div>
 
-      <div class="tab-body" id="tab-stack" hidden>
-        <div class="field"><label class="lbl" for="rf-tech-search">Filter technologies</label>
-          <input type="text" id="rf-tech-search" placeholder="Search the catalog…"></div>
-        <div id="chipGroups"></div>
-        <div class="field"><label class="lbl">Custom badges</label>
-          <div class="badge-builder">
-            <div class="badge-row">
-              <input type="text" id="cb-label" placeholder="label e.g. build">
-              <input type="text" id="cb-message" placeholder="message e.g. passing">
+      <button class="btn" id="btnCopy" type="button">Copy markdown</button>
+      <button class="btn primary" id="btnDownload" type="button">↓ README.md</button>
+    </div>
+  </header>
+
+  <main class="workspace">
+    
+    <!-- LEFT: FORM PANEL -->
+    <section class="glass panel form-panel">
+      <div class="tabs">
+        <button class="tab on" data-tab="tb-basics" type="button">Basics</button>
+        <button class="tab" data-tab="tb-stack" type="button">Stack</button>
+        <button class="tab" data-tab="tb-content" type="button">Content</button>
+        <button class="tab" data-tab="tb-structure" type="button">Structure</button>
+      </div>
+      
+      <div class="panel-body">
+        
+        <!-- TAB: BASICS -->
+        <div class="tab-body" id="tb-basics">
+          <div class="field">
+            <label class="lbl">Project name</label>
+            <input type="text" id="rf-name" placeholder="My Awesome Project">
+          </div>
+          <div class="field">
+            <label class="lbl">Tagline</label>
+            <input type="text" id="rf-tagline" placeholder="A short punchy tagline">
+          </div>
+          <div class="field">
+            <label class="lbl">Description</label>
+            <textarea id="rf-desc" rows="4" placeholder="What does your project do?"></textarea>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label class="lbl">Logo URL · optional</label>
+              <input type="url" id="rf-logo" placeholder="https://…/logo.png">
             </div>
-            <div class="badge-row">
-              <input type="text" id="cb-color" placeholder="color e.g. FF5C36">
-              <input type="text" id="cb-logo" placeholder="simple-icon slug (opt)">
+            <div class="field">
+              <label class="lbl">Version</label>
+              <input type="text" id="rf-version" placeholder="v1.0.0">
             </div>
-            <button class="btn primary" id="cb-add" type="button">+ Add badge</button>
-            <div id="cbList"></div>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label class="lbl">License</label>
+              <select id="rf-license">
+                <option>MIT</option><option>Apache-2.0</option><option>GPL-3.0</option>
+                <option>BSD-3-Clause</option><option>MPL-2.0</option><option>Unlicense</option><option>None</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="lbl">Repository URL</label>
+              <input type="url" id="rf-repo" placeholder="https://github.com/you/repo">
+            </div>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label class="lbl">Author</label>
+              <input type="text" id="rf-author" placeholder="Your Name">
+            </div>
+            <div class="field">
+              <label class="lbl">Author link</label>
+              <input type="url" id="rf-author-url" placeholder="https://github.com/you">
+            </div>
+          </div>
+          <div class="field">
+            <label class="lbl">Badge style</label>
+            <select id="rf-badge-style">
+              <option>flat-square</option><option>flat</option><option>for-the-badge</option><option>plastic</option>
+            </select>
           </div>
         </div>
-      </div>
 
-      <div class="tab-body" id="tab-content" hidden>
-        <div class="field"><label class="lbl" for="rf-features">Features</label>
-          <textarea id="rf-features" rows="5" placeholder="Live preview|Markdown rendered in real time"></textarea>
-          <p class="hint">One per line. Use <code>Name | description</code> for an automatic table.</p></div>
-        <div class="row">
-          <div class="field"><label class="lbl" for="rf-install">Install commands</label>
-            <textarea id="rf-install" rows="3" placeholder="npm install"></textarea></div>
-          <div class="field"><label class="lbl" for="rf-run">Run commands</label>
-            <textarea id="rf-run" rows="3" placeholder="npm run dev"></textarea></div>
-        </div>
-        <div class="field"><label class="lbl" for="rf-usage">Usage notes</label>
-          <textarea id="rf-usage" rows="4" placeholder="Tips, examples, important info…"></textarea></div>
-        <div class="field"><label class="lbl" for="rf-screenshot">Screenshot URL · optional</label>
-          <input type="text" id="rf-screenshot" placeholder="https://…/screenshot.png"></div>
-      </div>
-
-      <div class="tab-body" id="tab-structure" hidden>
-        <div class="field"><label class="lbl" for="rf-tree">Directory tree</label>
-          <textarea id="rf-tree" rows="8" placeholder="my-project&#10;  src&#10;    index.js&#10;  README.md"></textarea>
-          <p class="hint">2 spaces or 1 tab per level — converted to ├── glyphs live.</p>
-          <pre class="tree-hint" id="treeHint"></pre></div>
-        <div class="field"><label class="lbl">Sections to include</label>
-          <div class="checks">
-            <label class="check"><input type="checkbox" id="ck-toc" checked>Table of contents</label>
-            <label class="check"><input type="checkbox" id="ck-features" checked>Features</label>
-            <label class="check"><input type="checkbox" id="ck-stack" checked>Tech stack</label>
-            <label class="check"><input type="checkbox" id="ck-quickstart" checked>Quick start</label>
-            <label class="check"><input type="checkbox" id="ck-usage" checked>Usage</label>
-            <label class="check"><input type="checkbox" id="ck-tree" checked>Project structure</label>
-            <label class="check"><input type="checkbox" id="ck-contrib" checked>Contributing</label>
-            <label class="check"><input type="checkbox" id="ck-license" checked>License</label>
-            <label class="check"><input type="checkbox" id="ck-author" checked>Author</label>
-            <label class="check"><input type="checkbox" id="ck-emoji">Emoji headings ✨</label>
+        <!-- TAB: STACK -->
+        <div class="tab-body" id="tb-stack" hidden>
+          <div class="field">
+            <label class="lbl">Filter technologies</label>
+            <input type="text" id="rf-tech-search" placeholder="Type to filter 80+ techs…">
+          </div>
+          <div id="chipGroups"></div>
+          
+          <div class="field" style="margin-top:24px">
+            <label class="lbl">Custom badges</label>
+            <div class="badge-builder">
+              <div class="badge-row">
+                <input type="text" id="cb-label" placeholder="Label">
+                <input type="text" id="cb-message" placeholder="Message">
+              </div>
+              <div class="badge-row">
+                <input type="text" id="cb-color" placeholder="Color (hex)">
+                <input type="text" id="cb-logo" placeholder="Logo slug">
+              </div>
+              <button class="btn blue" id="cb-add" type="button" style="width:100%">+ Add badge</button>
+              <div class="badge-list" id="cbList"></div>
+            </div>
           </div>
         </div>
-        <div class="field"><label class="lbl" for="rf-contrib">Contributing steps</label>
-          <textarea id="rf-contrib" rows="6"></textarea></div>
-        <div class="field"><label class="lbl" for="rf-ack">Acknowledgments · optional</label>
-          <input type="text" id="rf-ack" placeholder="Credits, inspirations — markdown OK"></div>
+
+        <!-- TAB: CONTENT -->
+        <div class="tab-body" id="tb-content" hidden>
+          <div class="field">
+            <label class="lbl">Features</label>
+            <textarea id="rf-features" rows="5" placeholder="Fast and lightweight&#10;Zero dependencies"></textarea>
+            <div class="hint">One per line. Use <code>Name | description</code> for an automatic table.</div>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label class="lbl">Install commands</label>
+              <textarea id="rf-install" rows="3"></textarea>
+            </div>
+            <div class="field">
+              <label class="lbl">Run commands</label>
+              <textarea id="rf-run" rows="3"></textarea>
+            </div>
+          </div>
+          <div class="field">
+            <label class="lbl">Usage notes</label>
+            <textarea id="rf-usage" rows="4"></textarea>
+          </div>
+          <div class="field">
+            <label class="lbl">Screenshot URL · optional</label>
+            <input type="url" id="rf-screenshot" placeholder="https://…/shot.png">
+          </div>
+        </div>
+
+        <!-- TAB: STRUCTURE -->
+        <div class="tab-body" id="tb-structure" hidden>
+          <div class="field">
+            <label class="lbl">Directory tree</label>
+            <textarea id="rf-tree" rows="6" placeholder="project&#10;  src&#10;    index.js"></textarea>
+            <div class="hint">2 spaces or 1 tab per level — converted to ├── glyphs live.</div>
+          </div>
+          
+          <div class="field">
+            <label class="lbl">Sections to include</label>
+            <div class="checks">
+              <label class="check"><input type="checkbox" id="ck-toc"><span>Table of contents</span></label>
+              <label class="check"><input type="checkbox" id="ck-features"><span>Features</span></label>
+              <label class="check"><input type="checkbox" id="ck-stack"><span>Tech stack</span></label>
+              <label class="check"><input type="checkbox" id="ck-quickstart"><span>Quick start</span></label>
+              <label class="check"><input type="checkbox" id="ck-usage"><span>Usage</span></label>
+              <label class="check"><input type="checkbox" id="ck-tree"><span>Project structure</span></label>
+              <label class="check"><input type="checkbox" id="ck-contrib"><span>Contributing</span></label>
+              <label class="check"><input type="checkbox" id="ck-license"><span>License</span></label>
+              <label class="check"><input type="checkbox" id="ck-author"><span>Author</span></label>
+              <label class="check"><input type="checkbox" id="ck-emoji"><span>Emoji headings ✨</span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="lbl">Contributing steps</label>
+            <textarea id="rf-contrib" rows="4"></textarea>
+          </div>
+          <div class="field">
+            <label class="lbl">Acknowledgments · optional</label>
+            <textarea id="rf-ack" rows="2"></textarea>
+          </div>
+        </div>
+
       </div>
+    </section>
 
-    </div>
-  </section>
-
-  <section class="glass panel">
-    <div class="panel-head">
-      <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-      <span class="file">README.md</span>
-      <span class="live-note">rendered live · marked.js</span>
-    </div>
-    <div class="preview-scroll">
-      <div class="gh-card">
-        <div id="previewWrap"><article id="preview" class="gh"></article></div>
-        <pre id="raw" class="raw" hidden></pre>
+    <!-- RIGHT: PREVIEW PANEL -->
+    <section class="glass panel preview-panel">
+      <div class="panel-head">
+        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+        <span class="file">README.md</span>
+        <span class="live-note">rendered live · marked.js</span>
       </div>
-    </div>
-  </section>
+      <div class="preview-scroll" id="previewWrap">
+        <div class="gh-card"><div class="gh" id="preview"></div></div>
+      </div>
+      <pre class="raw" id="raw" hidden></pre>
+    </section>
 
-</main>
+  </main>
 
-<footer class="glass statusbar">
-  <span class="save"><i id="saveDot"></i>autosaved locally</span>
-  <span class="keys"><kbd>Ctrl</kbd>+<kbd>C</kbd> copy · <kbd>Ctrl</kbd>+<kbd>S</kbd> download</span>
-  <span class="stats" id="sbStats"></span>
-</footer>
+  <footer class="glass statusbar">
+    <span class="save"><i id="saveDot"></i><span>autosaved locally</span></span>
+    <span class="keys"><kbd>Ctrl</kbd>+<kbd>C</kbd> copy · <kbd>Ctrl</kbd>+<kbd>S</kbd> download</span>
+    <span class="stats" id="sbStats">0 badges · 0 sections · 0 words</span>
+    <pre class="tree-hint" id="treeHint" style="display:none"></pre>
+  </footer>
 
 </div>
-<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js"></script>
 <script src="assets/js/app.js"></script>
 </body>
 </html>
